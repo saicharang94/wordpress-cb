@@ -1,0 +1,32 @@
+steps:
+  # Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build', '-t',
+      'us-central1-docker.pkg.dev/cloudside-academy/wordpress-saai-demo/custom-wordpress:latest',
+      '.'
+    ]
+
+  # Push Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push',
+      'us-central1-docker.pkg.dev/cloudside-academy/wordpress-saai-demo/custom-wordpress:latest'
+    ]
+
+  # Authenticate with GKE
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud container clusters get-credentials saai-charan-cluster \
+          --region us-central1 \
+          --project cloudside-academy
+
+  # Deploy to GKE
+  - name: 'gcr.io/cloud-builders/kubectl'
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=us-central1'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=saai-charan-cluster'  
+    args: ['apply', '-f', 'wordpress-deployment.yaml']
