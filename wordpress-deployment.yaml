@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: wordpress
-        image: us-central1-docker.pkg.dev/cloudside-academy/wordpress-saai-demo/custom-wordpress:latest
+        image: us-central1-docker.pkg.dev/cloudside-academy/wordpress-saai-demo/custom-wordpress:v1
         ports:
         - containerPort: 80
 ---
