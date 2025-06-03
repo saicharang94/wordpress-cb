@@ -1,9 +1,9 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/cloudside-academy/wordpress-saai-demo/custom-wordpress:v1', '.']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/cloudside-academy/wordpress-sai-demo/my-wordpress:v1', '.']
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/cloudside-academy/wordpress-saai-demo/custom-wordpress:v1']
+    args: ['push', 'us-central1-docker.pkg.dev/cloudside-academy/wordpress-sai-demo/my-wordpress:v1']
 
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
@@ -32,5 +32,5 @@ steps:
 
 availableSecrets:
   secretManager:
-    - versionName: projects/769170094354/secrets/saai-build-test/versions/latest
+    - versionName: projects/769170094354/secrets/sai-secret/versions/latest
       env: 'SLACK_WEBHOOK'

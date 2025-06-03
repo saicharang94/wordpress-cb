@@ -1,31 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wordpress
+  name: wordpress-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: wordpress
+      app: scg-wordpress
   template:
     metadata:
       labels:
-        app: wordpress
+        app: scg-wordpress
     spec:
       containers:
-      - name: wordpress
-        image: us-central1-docker.pkg.dev/cloudside-academy/wordpress-saai-demo/custom-wordpress:v1
+      - name: scg-wordpress
+        image: us-central1-docker.pkg.dev/cloudside-academy/wordpress-sai-demo/my-wordpress:v1
         ports:
         - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: wordpress-service
+  name: scg-wordpress
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
-    app: wordpress
+    app: scg-wordpress
   ports:
     - port: 80
       targetPort: 80
+
